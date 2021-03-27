@@ -6,8 +6,12 @@ var argv = process.argv.slice(2);
 var atob = (str: any) => {return Buffer.from(str).toString('binary')};
 
 if (argv[0] === "run") {
-  var d = atob(fs.readFileSync(argv[1]));
-  console.log(compiler.compile(d));
+  if (argv[1] === "-c") {
+    console.log(compiler.compile(argv[2]));
+  } else {
+    var d = atob(fs.readFileSync(argv[1]));
+    console.log(compiler.compile(d));
+  }
 } else {
   console.log("Command not found.");
 }
